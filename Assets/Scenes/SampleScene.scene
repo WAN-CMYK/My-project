@@ -124,6 +124,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &50339416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 7
+  m_Component:
+  - component: {fileID: 50339417}
+  m_Layer: 0
+  m_HasEditorInfo: 1
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &50339417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50339416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.24, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1090192317}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &421843626
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421843627}
   - component: {fileID: 421843628}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: env_PlatformBridge
   m_TagString: Untagged
@@ -1148,7 +1180,7 @@ GameObject:
   - component: {fileID: 922200878}
   - component: {fileID: 922200879}
   - component: {fileID: 922200880}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: env_PlatformUfo
   m_TagString: Untagged
@@ -1366,7 +1398,7 @@ GameObject:
   - component: {fileID: 1027634915}
   - component: {fileID: 1027634916}
   - component: {fileID: 1027634917}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: env_PlatformTop
   m_TagString: Untagged
@@ -1621,6 +1653,7 @@ Transform:
   - {fileID: 820638502}
   - {fileID: 456414683}
   - {fileID: 482194526}
+  - {fileID: 50339417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1090192318
@@ -1635,6 +1668,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d33bbf241cf5c14ab72fb318823b1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveForce: 100
+  maxSpeed: 5
+  jumpForce: 350
+  mGroundCheck: {fileID: 0}
+  bFaceRight: 1
 --- !u!50 &1090192319
 Rigidbody2D:
   serializedVersion: 4
@@ -1661,7 +1699,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1090192320
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1696,8 +1734,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeLayer: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.22}
+  m_Radius: 1.64
 --- !u!1 &1157812275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2374,7 +2412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865677439}
   - component: {fileID: 1865677440}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: env_PlatformBridge
   m_TagString: Untagged
@@ -2726,7 +2764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2012979194}
   - component: {fileID: 2012979195}
-  m_Layer: 0
+  m_Layer: 6
   m_HasEditorInfo: 1
   m_Name: env_PlatformTop
   m_TagString: Untagged
