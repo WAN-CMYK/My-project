@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Tower
+  - BombPicku
+  - HealthBar
   layers:
   - Default
   - TransparentFX
@@ -12,8 +16,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Confiner
+  - Obstacle
   - 
   - 
   - 
@@ -49,4 +53,7 @@ TagManager:
     locked: 0
   - name: Hero
     uniqueID: 292738255
+    locked: 0
+  - name: UI
+    uniqueID: 1280415803
     locked: 0

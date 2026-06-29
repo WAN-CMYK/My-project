@@ -11,18 +11,20 @@ public class PlayerCtrl : MonoBehaviour
     // 跳跃相关变量
     public float jumpForce = 350f;    // 跳跃力（可在Inspector调整手感）
     public Transform mGroundCheck;    // 地面检测点（需要在Unity中赋值）
-    private bool bJump = false;       // 跳跃触发标志
+    public bool bJump = false;        // 跳跃触发标志（已改为public，供PlayerHealth访问）
 
     // 角色朝向变量
     public bool bFaceRight = true;    // 初始朝向（默认向右）
 
     // 组件引用
     Rigidbody2D playerBody;           // 角色刚体组件
+    private Animator anim;            // 动画控制器组件
 
     // Awake：游戏启动前获取组件
     private void Awake()
     {
         playerBody = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>(); // 自动获取物体上的Animator组件
     }
 
     // Start：游戏开始时初始化
@@ -39,7 +41,6 @@ public class PlayerCtrl : MonoBehaviour
     void Update()
     {
         // 1. 地面检测：判断角色是否站在地面上
-        // 从角色位置向GroundCheck点发射射线，只检测"Ground"层
         bool isGrounded = Physics2D.Linecast(
             transform.position,
             mGroundCheck.position,
@@ -50,6 +51,7 @@ public class PlayerCtrl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             bJump = true;
+            anim.SetTrigger("Jump"); // 触发跳跃动画触发器
         }
 
         // 3. 角色朝向自动翻转
@@ -64,7 +66,7 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    // FixedUpdate：固定物理帧更新，处理所有物理相关逻辑
+    // FixedUpdate：固定物理帧更新，处理物理与动画速度同步
     private void FixedUpdate()
     {
         if (playerBody == null) return;
@@ -89,8 +91,12 @@ public class PlayerCtrl : MonoBehaviour
         if (bJump)
         {
             playerBody.AddForce(Vector2.up * jumpForce);
-            bJump = false; // 跳跃后立即重置标志，防止空中连跳
+            bJump = false;
         }
+
+        // 同步水平速度到动画机，控制Idle ↔ Run 自动切换
+        // 取速度绝对值，保证左右移动都能正确触发跑步动画
+        anim.SetFloat("Speed", Mathf.Abs(playerBody.velocity.x));
     }
 
     // 角色翻转函数
@@ -99,6 +105,6 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-        bFaceRight = !bFaceRight; // 关键：更新朝向标志
+        bFaceRight = !bFaceRight;
     }
 }

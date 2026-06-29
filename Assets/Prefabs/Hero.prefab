@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1825559670019413127}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.008255, y: -0.119999886, z: 0}
+  m_LocalPosition: {x: 1.008255, y: -0.1199999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -235,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 5580185851322021414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.68637276, y: -1.7400002, z: 0}
+  m_LocalPosition: {x: -0.68637276, y: -1.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -323,7 +323,7 @@ Transform:
   m_GameObject: {fileID: 5894929908841727297}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.59000015, y: 1.3600001, z: 0}
+  m_LocalPosition: {x: -0.5900002, y: 1.3600001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -411,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 6735523888715754089}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0563717, y: -0.6000004, z: 0}
+  m_LocalPosition: {x: -1.056372, y: -0.6000004, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1069,6 +1069,8 @@ GameObject:
   - component: {fileID: 3750382094338225344}
   - component: {fileID: 4987057460939037886}
   - component: {fileID: 5018961640107124357}
+  - component: {fileID: 9085043463870781363}
+  - component: {fileID: 5069028108513509083}
   m_Layer: 0
   m_HasEditorInfo: 1
   m_Name: Hero
@@ -1183,6 +1185,7 @@ MonoBehaviour:
   maxSpeed: 5
   jumpForce: 350
   mGroundCheck: {fileID: 0}
+  bJump: 0
   bFaceRight: 1
 --- !u!70 &5018961640107124357
 CapsuleCollider2D:
@@ -1221,3 +1224,44 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!95 &9085043463870781363
+Animator:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139428869030386299}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e84f788e1cdbbb48a2094c677bcc1f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_UpdateFrequencyMode: 0
+  m_UpdateFrequency: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5069028108513509083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139428869030386299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff9f412e19663a4b8ddf44e3d77517a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  repeatHurtPeriod: 0.5
+  hurtForce: 100
+  upForce: 10
+  ouchClips: []
+  damageAmount: 60

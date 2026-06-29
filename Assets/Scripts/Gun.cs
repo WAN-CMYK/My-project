@@ -13,6 +13,8 @@ public class Gun : MonoBehaviour
     private PlayerCtrl playerCtrl;
     // 音频源组件，用于播放开枪音效
     private AudioSource audioSource;
+    // 玩家动画控制器（控制射击动画）
+    private Animator playerAnim;
 
     void Start()
     {
@@ -20,26 +22,31 @@ public class Gun : MonoBehaviour
         playerCtrl = transform.root.GetComponent<PlayerCtrl>();
         // 获取当前Gun物体上挂载的AudioSource组件
         audioSource = GetComponent<AudioSource>();
+        // 获取Hero根物体上的Animator组件（动画状态机挂载在Hero上）
+        playerAnim = transform.root.GetComponent<Animator>();
     }
 
     void Update()
     {
         // 空引用保护，防止组件缺失时报错崩溃
-        if (playerCtrl == null || rocket == null || audioSource == null) return;
+        if (playerCtrl == null || rocket == null || audioSource == null || playerAnim == null) return;
 
         // 检测鼠标左键按下
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            // 触发射击动画
+            playerAnim.SetTrigger("Shoot");
+
             // 播放发射音效
             audioSource.Play();
 
-            // 玩家朝右时
+            // 玩家朝右时，向右发射子弹
             if (playerCtrl.bFaceRight)
             {
                 Rigidbody2D rocketInstance = Instantiate(rocket, transform.position, Quaternion.identity);
                 rocketInstance.velocity = new Vector2(shootSpeed, 0);
             }
-            // 玩家朝左时
+            // 玩家朝左时，翻转子弹并向左发射
             else
             {
                 Rigidbody2D rocketInstance = Instantiate(rocket, transform.position, Quaternion.Euler(0, 180, 0));
