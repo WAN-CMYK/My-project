@@ -1,52 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// 【新增】引入事件系统库，用于检测是否点击了UI
+using UnityEngine.EventSystems;
 
 public class Gun : MonoBehaviour
 {
-    // 火箭预制体（在Unity中把你的Rocket预制体拖到这里）
     public Rigidbody2D rocket;
-    // 火箭发射速度（可在Inspector面板调整）
     public float shootSpeed = 15f;
 
-    // 引用玩家控制器
     private PlayerCtrl playerCtrl;
-    // 音频源组件，用于播放开枪音效
     private AudioSource audioSource;
-    // 玩家动画控制器（控制射击动画）
     private Animator playerAnim;
 
     void Start()
     {
-        // 获取玩家根对象上的PlayerCtrl脚本
         playerCtrl = transform.root.GetComponent<PlayerCtrl>();
-        // 获取当前Gun物体上挂载的AudioSource组件
         audioSource = GetComponent<AudioSource>();
-        // 获取Hero根物体上的Animator组件（动画状态机挂载在Hero上）
         playerAnim = transform.root.GetComponent<Animator>();
     }
 
     void Update()
     {
-        // 空引用保护，防止组件缺失时报错崩溃
         if (playerCtrl == null || rocket == null || audioSource == null || playerAnim == null) return;
 
         // 检测鼠标左键按下
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButtonDown(0))
         {
+            // 【核心修改】检测鼠标当前是否停留在任何 UI 元素上（如按钮、滑块）
+            // 如果 EventSystem.current.IsPointerOverGameObject() 返回 true，说明点到了 UI，直接 return 不执行射击
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            // --- 下面是原本的射击逻辑 ---
+
             // 触发射击动画
             playerAnim.SetTrigger("Shoot");
 
             // 播放发射音效
             audioSource.Play();
 
-            // 玩家朝右时，向右发射子弹
+            // 玩家朝右时
             if (playerCtrl.bFaceRight)
             {
                 Rigidbody2D rocketInstance = Instantiate(rocket, transform.position, Quaternion.identity);
                 rocketInstance.velocity = new Vector2(shootSpeed, 0);
             }
-            // 玩家朝左时，翻转子弹并向左发射
+            // 玩家朝左时
             else
             {
                 Rigidbody2D rocketInstance = Instantiate(rocket, transform.position, Quaternion.Euler(0, 180, 0));

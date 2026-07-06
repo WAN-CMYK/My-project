@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1065861347384335557}
   - component: {fileID: 4585316559612875427}
   - component: {fileID: 4807959932635012850}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: Enemy1
   m_TagString: Enemy
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6517667012912714362}
   - component: {fileID: 4705447018804241294}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: Body
   m_TagString: Untagged
@@ -216,7 +216,7 @@ GameObject:
   serializedVersion: 7
   m_Component:
   - component: {fileID: 5322718887808540934}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: FrontCheck
   m_TagString: Untagged

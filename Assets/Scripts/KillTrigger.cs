@@ -1,55 +1,48 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class KillTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject splash;   //水花动画
+    public GameObject splash;
     public AudioClip splashVoice;
-    void Start()
-    {
-
-    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
         AudioSource.PlayClipAtPoint(splashVoice, col.transform.position);
-        // 如果是主角碰到killtrigger
-        if (col.gameObject.tag == "Player")
+
+        if (col.CompareTag("Player"))
         {
-            // 停止相机跟随脚本
+            // 停止相机跟随
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>().enabled = false;
 
-            // 停止血条跟随
-            if (GameObject.FindGameObjectWithTag("HealthBar").activeSelf)
+            // 关闭血条
+            GameObject healthBar = GameObject.FindGameObjectWithTag("HealthBar");
+            if (healthBar.activeSelf)
             {
-                GameObject.FindGameObjectWithTag("HealthBar").SetActive(false);
+                healthBar.SetActive(false);
             }
 
-            // 实列化水花动画
-            Instantiate(splash, col.transform.position, transform.rotation);
-            // 销毁主角.
+            // 生成水花，1秒后自动销毁
+            GameObject splashInstance = Instantiate(splash, col.transform.position, transform.rotation);
+            Destroy(splashInstance, 1f);
+
             Destroy(col.gameObject);
-            //重启程序
             StartCoroutine("ReloadGame");
         }
         else
         {
-            // 实列化水花动画
-            Instantiate(splash, col.transform.position, transform.rotation);
-            // 销毁敌人.
+            // 修复变量名大小写错误，生成后自动销毁
+            GameObject splashInstance = Instantiate(splash, col.transform.position, transform.rotation);
+            Destroy(splashInstance, 1f);
+
             Destroy(col.gameObject);
         }
-
     }
 
     IEnumerator ReloadGame()
     {
-        // 延迟两秒
         yield return new WaitForSeconds(2);
-        // 重启游戏.
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 }
