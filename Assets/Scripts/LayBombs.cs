@@ -10,16 +10,24 @@ public class LayBombs : MonoBehaviour
     public AudioClip bombsAway;
     public GameObject bomb;
 
-    //[SerializeField]
-    private Text bombHUD;
+    // 旧的HUD代码已停用，统一用ScoreManager管理UI
+    // private Text bombHUD;
 
+    void Start()
+    {
+        // ========== 新增：开局初始化炸弹数量UI ==========
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.SetBombCount(bombCount);
+        }
+        // =============================================
+    }
 
     void Awake()
     {
-
-        //bombHUD = GameObject.Find("ui_bombHUD").GetComponent<Text>();
+        // 旧的查找HUD代码，已停用
+        // bombHUD = GameObject.Find("ui_bombHUD").GetComponent<Text>();
     }
-
 
     void Update()
     {
@@ -30,6 +38,13 @@ public class LayBombs : MonoBehaviour
             bombLaid = true;
             AudioSource.PlayClipAtPoint(bombsAway, transform.position);
             Instantiate(bomb, transform.position, transform.rotation); //实例化炸弹
+
+            // ========== 新增：扔炸弹后同步更新UI ==========
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.SetBombCount(bombCount);
+            }
+            // ===========================================
         }
     }
 }

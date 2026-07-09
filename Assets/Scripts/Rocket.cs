@@ -18,7 +18,18 @@ public class Rocket : MonoBehaviour
             }
         }
 
-        // 生成爆炸特效
+        // ========== 新增：命中炸弹箱，触发其自身爆炸 ==========
+        if (collision.CompareTag("BombCrate"))
+        {
+            Bomb crateBomb = collision.GetComponent<Bomb>();
+            if (crateBomb != null)
+            {
+                crateBomb.Explode();
+            }
+        }
+        // ==================================================
+
+        // 生成火箭自身爆炸特效
         if (explosion != null)
         {
             Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(0, 180));

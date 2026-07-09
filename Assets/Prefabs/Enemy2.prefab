@@ -76,7 +76,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeLayer: 0
-  m_Offset: {x: 0, y: 0.18}
+  m_Offset: {x: 0, y: 0.004085198}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -86,7 +86,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6, y: 0.5660677}
+  m_Size: {x: 0.6, y: 0.91789734}
   m_EdgeRadius: 0
 --- !u!50 &5000000
 Rigidbody2D:
@@ -145,12 +145,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeLayer: 0
-  m_Offset: {x: 0, y: -0.09}
-  m_Radius: 0.32
+  m_Offset: {x: 0, y: -0.120594256}
+  m_Radius: 0.35059425
 --- !u!95 &9500000
 Animator:
   serializedVersion: 6
@@ -193,6 +193,9 @@ MonoBehaviour:
   frontCheck: {fileID: 0}
   spinMin: 100
   spinMax: 300
+  scoreValue: 100
+  floatingTextPrefab: {fileID: 4681154168246211876, guid: ab35d86db7e470d4daf149342af51ce0, type: 3}
+  scoreColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400004}
   - component: {fileID: 21200002}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: tail
   m_TagString: Untagged
@@ -269,7 +272,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 292738255
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 361e1e5d552ad444fb688b5203c01caa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -291,7 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400006}
   - component: {fileID: 21200000}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: eye
   m_TagString: Untagged
@@ -357,7 +360,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 292738255
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300004, guid: 361e1e5d552ad444fb688b5203c01caa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -379,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400008}
   - component: {fileID: 21200004}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: eyelid
   m_TagString: Untagged
@@ -445,7 +448,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 292738255
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300006, guid: 361e1e5d552ad444fb688b5203c01caa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -467,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400010}
   - component: {fileID: 21200006}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
   m_Name: Body
   m_TagString: Untagged
@@ -533,7 +536,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 292738255
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300002, guid: 361e1e5d552ad444fb688b5203c01caa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -554,9 +557,9 @@ GameObject:
   serializedVersion: 7
   m_Component:
   - component: {fileID: 400012}
-  m_Layer: 0
+  m_Layer: 10
   m_HasEditorInfo: 1
-  m_Name: frontCheck
+  m_Name: FrontCheck
   m_TagString: Untagged
   m_Icon: {fileID: 168350284, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

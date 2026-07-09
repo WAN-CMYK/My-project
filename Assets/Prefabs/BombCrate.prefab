@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 3242736628991682021}
   - component: {fileID: 9072434258159554962}
   - component: {fileID: 8978090976787683607}
-  - component: {fileID: 3144337433541085467}
+  - component: {fileID: 5736048903206150156}
   m_Layer: 9
   m_HasEditorInfo: 1
   m_Name: Crate
-  m_TagString: Untagged
+  m_TagString: BombCrate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeLayer: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.034859896, y: 0.1743105}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -136,7 +136,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.52, y: 2.88}
+  m_Size: {x: 3.3107958, y: 2.670824}
   m_EdgeRadius: 0
 --- !u!58 &9072434258159554962
 CircleCollider2D:
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupClip: {fileID: 8300000, guid: 0f0f1f98eb73543f6af74d3b8fb23f1f, type: 3}
---- !u!114 &3144337433541085467
+--- !u!114 &5736048903206150156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,12 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec2020dd0fa05a4da239150e2fc242b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombRadius: 10
+  bombRadius: 100
   bombForce: 100
   boom: {fileID: 8300000, guid: 8b4e61c51941a46d1aac273472c814fd, type: 3}
-  fuse: {fileID: 8300000, guid: 238da4efc08184aee919af254edb2ef1, type: 3}
+  fuse: {fileID: 8300000, guid: 0f0f1f98eb73543f6af74d3b8fb23f1f, type: 3}
   fuseTime: 1.5
-  explosion: {fileID: 0}
+  explosion: {fileID: 6184787971174717997, guid: 1341995cf4efa484ab32244aa948d861, type: 3}
 --- !u!1 &4341406564826016181
 GameObject:
   m_ObjectHideFlags: 0

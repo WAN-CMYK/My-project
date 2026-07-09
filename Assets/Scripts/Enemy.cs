@@ -6,12 +6,20 @@ public class Enemy : MonoBehaviour
 {
     public float speed = 4f;
     public float HP = 2f;
-    // 改成 Sprite 类型，直接拖图片资源
     public Sprite damageSprite;
     public Sprite deadSprite;
     public Transform frontCheck;
     public float spinMin = 100f;
     public float spinMax = 300f;
+
+    [Header("击杀得分")]
+    public int scoreValue = 100;
+
+    // ========== 新增部分开始 ==========
+    [Header("飘字设置")]
+    public GameObject floatingTextPrefab; // 需要挂载飘字预制体
+    public Color scoreColor = Color.yellow; // 飘字颜色
+    // ========== 新增部分结束 ==========
 
     SpriteRenderer ren;
     Rigidbody2D enemyBody;
@@ -59,13 +67,11 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        // 血量为1切受伤贴图
         if (HP == 1 && damageSprite != null)
         {
             ren.sprite = damageSprite;
         }
 
-        // 血量归零死亡
         if (HP <= 0 && !dead)
         {
             if (deadSprite != null)
@@ -93,6 +99,16 @@ public class Enemy : MonoBehaviour
     {
         dead = true;
 
+        // 1. 增加分数逻辑
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(scoreValue);
+        }
+
+        // ========== 新增部分：生成飘字 ==========
+        SpawnFloatingText();
+        // =========================================
+
         Collider2D[] cols = GetComponents<Collider2D>();
         foreach (Collider2D c in cols)
         {
@@ -110,4 +126,32 @@ public class Enemy : MonoBehaviour
 
         Destroy(gameObject, 0.5f);
     }
+
+    // ========== 新增部分：生成飘字的具体逻辑 ==========
+    void SpawnFloatingText()
+    {
+        // 如果没有设置预制体或Canvas，则不执行
+        if (floatingTextPrefab == null) return;
+
+        // 找到场景中的 Canvas，确保生成的文字属于 UI 层级
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) return;
+
+        // 实例化预制体，父物体设为 Canvas
+        GameObject textObj = Instantiate(floatingTextPrefab, canvas.transform);
+
+        // 获取我们写的 FloatingText 组件
+        FloatingText fText = textObj.GetComponent<FloatingText>();
+
+        if (fText != null)
+        {
+            // 关键步骤：将敌人的世界坐标转换为屏幕坐标（因为 UI 是基于屏幕的）
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            textObj.transform.position = screenPos;
+
+            // 初始化文字内容（例如 "+100"）和颜色
+            fText.Init("+" + scoreValue.ToString(), scoreColor);
+        }
+    }
+    // ================================================
 }

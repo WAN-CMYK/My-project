@@ -119,6 +119,9 @@ MonoBehaviour:
   frontCheck: {fileID: 0}
   spinMin: 100
   spinMax: 300
+  scoreValue: 100
+  floatingTextPrefab: {fileID: 4681154168246211876, guid: ab35d86db7e470d4daf149342af51ce0, type: 3}
+  scoreColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &3889165153504389847
 GameObject:
   m_ObjectHideFlags: 0
