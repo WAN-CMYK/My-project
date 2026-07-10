@@ -10,21 +10,23 @@ public class PlayerHealth : MonoBehaviour
     public float upForce = 10f;
     public AudioClip[] ouchClips;
     public float damageAmount = 60f;
-    // 建议直接把Hierarchy里的Health物体拖到这里赋值，比运行时Find更稳定
     public SpriteRenderer healthBar;
 
     private float lastHurtTime = 0;
     private PlayerCtrl playerCtrl;
     private Animator anim;
     private Vector3 healthScale;
-    private bool isDead = false; // 死亡标记，避免死亡后继续执行伤害逻辑
+    private bool isDead = false;
+    // 新增：缓存自身的AudioSource组件
+    private AudioSource _audioSource;
 
     void Start()
     {
         playerCtrl = GetComponent<PlayerCtrl>();
         anim = GetComponent<Animator>();
+        // 获取物体上挂载的AudioSource，直接复用Inspector里配置好的PLAYER声道
+        _audioSource = GetComponent<AudioSource>();
 
-        // Inspector未赋值时，再尝试自动查找
         if (healthBar == null)
         {
             GameObject healthObj = GameObject.Find("Health");
@@ -46,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 死亡后直接拦截所有碰撞伤害
         if (isDead) return;
 
         if (collision.gameObject.CompareTag("Enemy"))
@@ -74,7 +75,7 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(hurtVector * hurtForce);
 
         health -= damageAmount;
-        lastHurtTime = Time.time; // 更新受伤时间戳
+        lastHurtTime = Time.time;
 
         if (health <= 0)
         {
@@ -84,11 +85,11 @@ public class PlayerHealth : MonoBehaviour
         }
         UpdateHealthBar();
 
-        // 音效播放前做空判断
-        if (ouchClips != null && ouchClips.Length > 0)
+        // 替换原有播放方式：用自身AudioSource播放，复用声道配置
+        if (ouchClips != null && ouchClips.Length > 0 && _audioSource != null)
         {
             int i = Random.Range(0, ouchClips.Length);
-            AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
+            _audioSource.PlayOneShot(ouchClips[i]);
         }
     }
 
@@ -118,7 +119,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        // 核心修复：访问前先判断血条是否存在、未被销毁
         if (healthBar == null) return;
 
         healthBar.material.color = Color.Lerp(Color.green, Color.red, 1 - health * 0.01f);
